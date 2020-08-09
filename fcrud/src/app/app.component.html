@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+      <a class="navbar-brand" href="#">Movies List</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown"></div>
+    </nav>
+    <div class="container">
+      <br />
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="card bg-warning" style="width: 18rem;">
+            <div class="card-header">
+              Movies
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let movie of movies">
+                {{ movie.title }}
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  style="float: right;"
+                >
+                  <span (click)="movieClicked(movie)">view</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-5">
+          Title:<input
+            class="form-control"
+            type="text"
+            [(ngModel)]="selectedMovie.title"
+          />
+          Description:<input
+            class="form-control"
+            type="text"
+            [(ngModel)]="selectedMovie.desc"
+          />
+          Year:<input
+            class="form-control"
+            type="text"
+            [(ngModel)]="selectedMovie.year"
+          /><br />
+          <button
+            class="btn btn-success"
+            *ngIf="selectedMovie.id != -1"
+            (click)="updateMovie()"
+          >
+            PUT
+          </button>
+          <button
+            class="btn btn-primary"
+            *ngIf="selectedMovie.id == -1"
+            (click)="createMovie()"
+          >
+            POST
+          </button>
+          <button
+            class="btn btn-danger"
+            *ngIf="selectedMovie.id != -1"
+            (click)="deleteMovie()"
+          >
+            DELETE
+          </button>
+        </div>
+      </div>
+      <br />
+      <div class="card" *ngIf="selectedMovie.id > 0">
+        <h5 class="card-header">{{ selectedMovie.title }}</h5>
+        <div class="card-body">
+          <p class="card-text">
+            {{ selectedMovie.desc }}
+          </p>
+          <a href="#" class="btn btn-primary">{{ selectedMovie.year }}</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
